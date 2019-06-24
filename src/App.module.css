@@ -1,5 +1,24 @@
-.App {
-  text-align: center;
+.app {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  height: 100vh;
+  overflow: hidden;
+  background: lightgrey;
+}
+
+.search {
+  height: 5vh;
+}
+
+.feed {
+  flex-grow: 1;
+  height: 95vh;
 }
 
 .App-logo {

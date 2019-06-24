@@ -1,0 +1,17 @@
+.search {
+  width: 100%;
+}
+
+.input {
+  --border: 4px;
+  --gap: 12px;
+  width: calc(100% - 2 * (var(--gap) + var(--border)));
+  padding: 8px var(--gap);
+  border: var(--border) solid green;
+  font-size: 24px;
+}
+
+.input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
