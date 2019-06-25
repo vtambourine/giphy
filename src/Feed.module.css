@@ -13,3 +13,8 @@
 .image {
   width: 100%;
 }
+
+.spinner {
+  margin-bottom: 120px;
+  text-align: center;
+}

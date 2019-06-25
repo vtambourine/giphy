@@ -1,10 +1,11 @@
 import { throttle } from 'lodash';
 import cx from 'classnames';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import Feed from './Feed';
 import Provider from './provider';
 import Search from './Search';
+import Spinner from './Spinner';
 
 import styles from './App.module.css';
 
@@ -17,7 +18,7 @@ interface IAppState {
 
 class App extends React.Component<IAppProps, IAppState> {
   state = {
-    isLoading: false,
+    isLoading: true,
     data: [] as GIF[],
   };
 
@@ -58,19 +59,25 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, isLoading } = this.state;
     return (
       <div className={styles.app}>
         <div
           className={cx(styles.container, {
             [styles.empty]: data.length === 0,
+            [styles.loading]: isLoading,
           })}
         >
           <div className={styles.search}>
             <Search onChange={this.throttledSubmit} />
+            {isLoading && (
+              <div className={styles.spinner}>
+                <Spinner />
+              </div>
+            )}
           </div>
           <div className={styles.feed}>
-            <Feed data={data} onFeedEnd={this.onFeedEnd} />
+            <Feed data={data} onFeedEnd={this.onFeedEnd} loading={isLoading} />
           </div>
         </div>
       </div>

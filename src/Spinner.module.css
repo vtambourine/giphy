@@ -1,0 +1,49 @@
+:root {
+  --bar: 12px;
+  --gap: 8px;
+  --size: 52px;
+  --animation-delay: -0.12s;
+}
+
+.spinner {
+  display: inline-block;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+}
+
+.spinner div {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  width: var(--bar);
+  background: #fff;
+  animation: spinner 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.spinner div:nth-child(1) {
+  left: 0;
+  animation-delay: calc(2 * var(--animation-delay));
+}
+
+.spinner div:nth-child(2) {
+  left: calc(var(--gap) + var(--bar));
+  animation-delay: var(--animation-delay);
+}
+
+.spinner div:nth-child(3) {
+  left: calc(2 * (var(--gap) + var(--bar)));
+  animation-delay: 0;
+}
+
+@keyframes spinner {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+  50%,
+  100% {
+    top: 19px;
+    height: 26px;
+  }
+}

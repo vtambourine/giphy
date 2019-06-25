@@ -17,6 +17,7 @@
 }
 
 .search {
+  position: relative;
   height: var(--search-height);
   margin: 12px 0;
   transition: transform 0.3s;
@@ -36,4 +37,16 @@
 .empty .feed {
   height: 0;
   flex: 0 1;
+}
+
+.loading .feed {
+  opacity: 0.5;
+}
+
+.spinner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 50%;
+  transform: translateX(-50%) translateY(150%);
 }

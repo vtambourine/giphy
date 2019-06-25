@@ -1,6 +1,8 @@
 import { throttle } from 'lodash';
 import React, { useEffect, useRef } from 'react';
 
+import Spinner from './Spinner';
+
 import styles from './Feed.module.css';
 
 const THROTTLE_TIMEOUT = 150;
@@ -8,18 +10,19 @@ const OVERLAP_GAP = 320;
 
 interface IFeedProps {
   data: GIF[];
+  loading?: boolean;
   onFeedEnd: () => void;
 }
 
 const Feed: React.FC<IFeedProps> = props => {
   const scrollElement = useRef<HTMLDivElement>(null);
+  const firstGIF = props.data[0];
 
-  const fistGIF = props.data[0];
   useEffect(() => {
     if (scrollElement && scrollElement.current) {
       scrollElement.current.scrollTo({ top: 0 });
     }
-  }, [fistGIF]);
+  }, [firstGIF]);
 
   useEffect(() => {
     function handleScroll() {
@@ -62,6 +65,11 @@ const Feed: React.FC<IFeedProps> = props => {
           </div>
         );
       })}
+      {props.loading && (
+        <div className={styles.spinner}>
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

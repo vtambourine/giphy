@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+
 import styles from './Search.module.css';
 
+const ENTER = 13;
+
 interface ISearchProps {
-  // onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onChange: (query: string) => void;
 }
 
@@ -22,7 +24,7 @@ const Search: React.FC<ISearchProps> = props => {
           props.onChange(event.target.value);
         }}
         onKeyDown={event => {
-          if (event.keyCode === 13) {
+          if (event.keyCode === ENTER) {
             props.onChange(query);
           }
         }}
