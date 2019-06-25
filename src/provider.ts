@@ -8,9 +8,11 @@ interface ProviderOptions {
 }
 
 class Provider {
+  query: string;
   options: ProviderOptions;
 
-  constructor(private query: string, options: Partial<ProviderOptions> = {}) {
+  constructor(query: string, options: Partial<ProviderOptions> = {}) {
+    this.query = encodeURIComponent(query);
     this.options = {
       language: 'en',
       limit: 5,
@@ -28,7 +30,7 @@ class Provider {
   next() {
     const url = this.url;
     this.options.offset += this.options.limit;
-    return fetch(url);
+    return fetch(url).then(response => response.json());
   }
 }
 

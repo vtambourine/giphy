@@ -64,6 +64,18 @@ describe('Provider', () => {
     expect(calledOptions.get('rating')).toEqual(options.rating);
   });
 
+  it('encodes search query', () => {
+    const query = 'a +%?$ b';
+    const encodedQuery = encodeURIComponent(query);
+    const provider = new Provider(query);
+
+    provider.next();
+
+    const calledOptions = new URL(fetchMock.mock.calls[0]).search;
+    expect(calledOptions).toEqual(expect.stringContaining(encodedQuery));
+    expect(calledOptions).toEqual(expect.not.stringContaining(query));
+  });
+
   it('fetches consecutive batches of images', () => {
     provider.next();
     expect(lastCallOffset()).toEqual(0);
