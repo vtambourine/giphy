@@ -1,4 +1,4 @@
-import Provider from './provider';
+import Provider from './Provider';
 import { URL } from 'url';
 
 describe('Provider', () => {

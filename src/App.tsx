@@ -3,7 +3,7 @@ import cx from 'classnames';
 import React from 'react';
 
 import Feed from './Feed';
-import Provider from './provider';
+import Provider from './Provider';
 import Search from './Search';
 import Spinner from './Spinner';
 
