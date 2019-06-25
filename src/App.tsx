@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
+import { throttle } from 'lodash';
 import Search from './Search';
 import Feed from './Feed';
-import { throttle } from 'lodash';
+import Provider from './provider';
+import cx from 'classnames';
 
 import styles from './App.module.css';
 
 function useProvier(initialState: GIF[]): [GIF[], (q: string) => void] {
   const [state, setState] = useState<GIF[]>(initialState);
   function submit(query: string) {
-    const data = require('./fixture/data').data as GIF[];
-    setState(data);
+    const provider = new Provider(query);
+    provider.next().then(response => setState(response.data));
   }
 
   return [state, submit];
@@ -17,12 +19,16 @@ function useProvier(initialState: GIF[]): [GIF[], (q: string) => void] {
 
 const App: React.FC = () => {
   const [data, submit] = useProvier([] as GIF[]);
-  const throttledSubmit = useRef(throttle(submit, 1000, { leading: false }))
+  const throttledSubmit = useRef(throttle(submit, 1500, { leading: false }))
     .current;
 
   return (
     <div className={styles.app}>
-      <div className={styles.container}>
+      <div
+        className={cx(styles.container, {
+          [styles.empty]: data.length === 0,
+        })}
+      >
         <div className={styles.search}>
           <Search onChange={q => throttledSubmit(q)} />
         </div>

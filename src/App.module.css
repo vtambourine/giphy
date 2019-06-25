@@ -1,3 +1,7 @@
+:root {
+  --search-height: 60px;
+}
+
 .app {
   display: flex;
   justify-content: center;
@@ -13,12 +17,24 @@
 }
 
 .search {
-  height: 5vh;
+  height: var(--search-height);
+  transition: transform 0.3s;
 }
 
 .feed {
-  flex-grow: 1;
-  height: 95vh;
+  flex: 1;
+  height: calc(100vh - var(--search-height));
+}
+
+.empty .search {
+  flex: 1;
+  height: 100vh;
+  transform: translateY(50%);
+}
+
+.empty .feed {
+  height: 0;
+  flex: 0 1;
 }
 
 .App-logo {
