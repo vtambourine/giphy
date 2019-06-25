@@ -19,7 +19,11 @@ const Feed: React.FC<IFeedProps> = props => {
   const firstGIF = props.data[0];
 
   useEffect(() => {
-    if (scrollElement && scrollElement.current) {
+    if (
+      scrollElement &&
+      scrollElement.current &&
+      scrollElement.current.scrollTo
+    ) {
       scrollElement.current.scrollTo({ top: 0 });
     }
   }, [firstGIF]);
