@@ -1,4 +1,4 @@
-const GITHPY_API_KEY = process.env.REACT_APP_GITHPY_API_KEY;
+const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
 
 interface ProviderOptions {
   language: string;
@@ -24,7 +24,7 @@ class Provider {
 
   get url() {
     const { language, limit, offset, rating } = this.options;
-    return `https://api.giphy.com/v1/gifs/search?api_key=${GITHPY_API_KEY}&q=${this.query}&limit=${limit}&offset=${offset}&rating=${rating}&lang=${language}`;
+    return `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${this.query}&limit=${limit}&offset=${offset}&rating=${rating}&lang=${language}`;
   }
 
   next(): Promise<{ data: GIF[] }> {
