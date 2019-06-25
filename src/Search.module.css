@@ -1,14 +1,57 @@
+:root {
+  --border: 4px;
+  --gap: 12px;
+}
+
 .search {
+  position: relative;
   width: 100%;
+  border-width: var(--border) 0;
+  border-style: solid;
+  border-color: #fff35b transparent #00ccff transparent;
+}
+
+.search:before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--border));
+  right: 0;
+  width: calc(3 * var(--border));
+  height: calc(3 * var(--border));
+  background-color: #121212;
+}
+
+.search:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--border));
+  right: 0;
+  width: calc(3 * var(--border));
+  height: calc(3 * var(--border));
+  background-color: #ff6666;
+  clip-path: polygon(
+    0 0,
+    33% 0,
+    33% 33%,
+    66% 33%,
+    66% 66%,
+    100% 66%,
+    100% 100%,
+    0 100%
+  );
 }
 
 .input {
-  --border: 4px;
-  --gap: 12px;
   width: calc(100% - 2 * (var(--gap) + var(--border)));
-  padding: 8px var(--gap);
-  border: var(--border) solid green;
-  font-size: 24px;
+  height: 52px;
+  padding: 0 var(--gap);
+  outline: none;
+  border-width: 0 var(--border);
+  border-style: solid;
+  border-color: transparent #9933ff transparent #00ff99;
+  font-size: 18px;
 }
 
 .input::placeholder {
