@@ -1,44 +1,66 @@
+# GIPHY
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Configuration
 
-In the project directory, you can run:
+### GIPHY_API_KEY
 
-### `npm start`
+Before staring the app, you need to copy file `.env` into the `.env.local`, and assign GIPHY API key to the `REACT_APP_GIPHY_API_KEY` variable:
+
+```bash
+REACT_APP_GIPHY_API_KEY=<api_key>
+```
+
+## Usage
+
+### Installing dependencies
+
+```sh
+yarn
+```
+
+### Staring the app
+
+```sh
+yarn start
+```
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Running tests and types checks
 
-### `npm test`
+```sh
+yarn test
+```
+Launches the test runner in the interactive watch mode.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+yarn types
+```
 
-### `npm run build`
+Launches TypeScript complier in dry run mode.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Design considiration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [TypeScript](https://facebook.github.io/create-react-app/docs/adding-typescript). It has a pure [React](https://reactjs.org/docs/getting-started.html) application structure with [Hooks](https://reactjs.org/docs/hooks-intro.html) and [CSS Modules](https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet). For unit tests, it uses [Jest](https://jestjs.io) and [Enzyme](https://airbnb.io/enzyme/). For better code quality, it follows [Prettier](https://prettier.io) best practices.
 
-### `npm run eject`
+## Room for improvement
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### State management
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For simple case of this app, there are no real value of adding popular state management libraries, such as [Redux](https://redux.js.org/) or [MobX](https://mobx.js.org/). However, in real life production application, adopting one of the popular state management tools will help handle increasing complexity, while keeping app structure clean and understandable.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### CSS preprocessors
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Modern CSS, CSS Modules and [PostCSS](https://postcss.org/) library make using CSS preprocessors (such as [Sass](https://sass-lang.com/)) less attractive. The preprocessor's real value of handling lists of shared styles (such as brand colors), or handling complex responsive desing, lies beyond the scope of this project.
 
-## Learn More
+### Unit testing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+More time should be invested in better test quality and test covarage. One of the next steps might be adopting [React Testing Library](https://testing-library.com/) for better and easier testing of React components and Hooks.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Caching
+
+One of the important sides of web application not covered in this project is caching and traffic optimisation. There are multiple paths to take to make user experience better. One of them — fetching next batches of images for infinite scroll in the background process of service worker. Another — store popular queries and pre-load expected images on the initial screen.
