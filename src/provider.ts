@@ -30,7 +30,13 @@ class Provider {
   next() {
     const url = this.url;
     this.options.offset += this.options.limit;
-    return fetch(url).then(response => response.json());
+    return fetch(url)
+      .then(response => {
+        response.json();
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
 

@@ -11,7 +11,7 @@ describe('Provider', () => {
   };
 
   let provider: Provider;
-  let fetchMock = jest.fn().mockResolvedValue([]);
+  let fetchMock = jest.fn().mockResolvedValue({ json: () => {} });
   window.fetch = fetchMock;
 
   function lastCallOffset() {
