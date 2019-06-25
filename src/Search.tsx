@@ -14,6 +14,7 @@ const Search: React.FC<ISearchProps> = props => {
       <input
         className={styles.input}
         type="text"
+        autoFocus
         value={query}
         placeholder="Search GIPHY..."
         onChange={event => {
