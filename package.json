@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "types": "tsc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,10 +29,6 @@
     ]
   },
   "dependencies": {
-    "@types/jest": "24.0.15",
-    "@types/node": "12.0.10",
-    "@types/react": "16.8.22",
-    "@types/react-dom": "16.8.4",
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "react": "^16.8.6",
@@ -40,7 +37,10 @@
     "typescript": "3.5.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^8.0.4",
+    "@types/jest": "24.0.15",
+    "@types/node": "12.0.10",
+    "@types/react": "16.8.22",
+    "@types/react-dom": "16.8.4",
     "@types/classnames": "^2.2.8",
     "@types/enzyme": "^3.9.4",
     "@types/lodash": "^4.14.134",
