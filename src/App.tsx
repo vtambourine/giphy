@@ -12,13 +12,15 @@ import styles from './App.module.css';
 interface IAppProps {}
 
 interface IAppState {
-  isLoading: boolean;
+  loadingFeed: boolean;
+  loadingQuery: boolean;
   data: GIF[];
 }
 
 class App extends React.Component<IAppProps, IAppState> {
   state = {
-    isLoading: true,
+    loadingFeed: false,
+    loadingQuery: false,
     data: [] as GIF[],
   };
 
@@ -32,26 +34,25 @@ class App extends React.Component<IAppProps, IAppState> {
 
   onSubmit = (query: string) => {
     this.setState({
-      isLoading: true,
+      loadingQuery: true,
     });
     this.provider = new Provider(query);
     this.provider.next().then(({ data }) =>
       this.setState({
-        isLoading: false,
+        loadingQuery: false,
         data,
       }),
     );
   };
 
   onFeedEnd = () => {
-    if (!this.state.isLoading && this.provider) {
+    if (!this.state.loadingQuery && this.provider) {
       this.setState({
-        isLoading: true,
+        loadingFeed: true,
       });
-
       this.provider.next().then(({ data }) =>
         this.setState({
-          isLoading: false,
+          loadingFeed: false,
           data: [...this.state.data, ...data],
         }),
       );
@@ -59,25 +60,29 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   render() {
-    const { data, isLoading } = this.state;
+    const { data, loadingFeed, loadingQuery } = this.state;
     return (
       <div className={styles.app}>
         <div
           className={cx(styles.container, {
             [styles.empty]: data.length === 0,
-            [styles.loading]: isLoading,
+            [styles.loading]: loadingQuery,
           })}
         >
           <div className={styles.search}>
             <Search onChange={this.throttledSubmit} />
-            {isLoading && (
+            {loadingQuery && (
               <div className={styles.spinner}>
                 <Spinner />
               </div>
             )}
           </div>
           <div className={styles.feed}>
-            <Feed data={data} onFeedEnd={this.onFeedEnd} loading={isLoading} />
+            <Feed
+              data={data}
+              onFeedEnd={this.onFeedEnd}
+              loading={loadingFeed}
+            />
           </div>
         </div>
       </div>
