@@ -16,7 +16,7 @@ describe('Provider', () => {
 
   function lastCallOffset() {
     const calledURL = fetchMock.mock.calls[fetchMock.mock.calls.length - 1];
-    return +new URL(calledURL).searchParams.get('offset');
+    return Number(new URL(calledURL).searchParams.get('offset'));
   }
 
   beforeEach(() => {
@@ -37,8 +37,8 @@ describe('Provider', () => {
     const calledOptions = new URL(fetchMock.mock.calls[0]).searchParams;
     expect(calledOptions.get('q')).toEqual(query);
     expect(calledOptions.get('lang')).toEqual(defaultOptions.language);
-    expect(+calledOptions.get('limit')).toEqual(defaultOptions.limit);
-    expect(+calledOptions.get('offset')).toEqual(defaultOptions.offset);
+    expect(calledOptions.get('limit')).toEqual(String(defaultOptions.limit));
+    expect(calledOptions.get('offset')).toEqual(String(defaultOptions.offset));
     expect(calledOptions.get('rating')).toEqual(defaultOptions.rating);
   });
 
@@ -59,8 +59,8 @@ describe('Provider', () => {
     const calledOptions = new URL(fetchMock.mock.calls[0]).searchParams;
     expect(calledOptions.get('q')).toEqual(query);
     expect(calledOptions.get('lang')).toEqual(options.language);
-    expect(+calledOptions.get('limit')).toEqual(options.limit);
-    expect(+calledOptions.get('offset')).toEqual(options.offset);
+    expect(calledOptions.get('limit')).toEqual(String(options.limit));
+    expect(calledOptions.get('offset')).toEqual(String(options.offset));
     expect(calledOptions.get('rating')).toEqual(options.rating);
   });
 

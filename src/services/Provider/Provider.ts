@@ -27,16 +27,17 @@ class Provider {
     return `https://api.giphy.com/v1/gifs/search?api_key=${GITHPY_API_KEY}&q=${this.query}&limit=${limit}&offset=${offset}&rating=${rating}&lang=${language}`;
   }
 
-  next() {
+  next(): Promise<{ data: GIF[] }> {
     const url = this.url;
     this.options.offset += this.options.limit;
-    return fetch(url)
-      .then(response => {
-        response.json();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then(response => resolve(response.json()))
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        });
+    });
   }
 }
 

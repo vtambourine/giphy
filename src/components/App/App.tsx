@@ -2,10 +2,8 @@ import { throttle } from 'lodash';
 import cx from 'classnames';
 import React from 'react';
 
-import Feed from './Feed';
-import Provider from './Provider';
-import Search from './Search';
-import Spinner from './Spinner';
+import { Feed, Search, Spinner } from '..';
+import { Provider } from '../../services';
 
 import styles from './App.module.css';
 

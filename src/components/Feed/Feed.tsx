@@ -1,7 +1,7 @@
 import { throttle } from 'lodash';
 import React, { useEffect, useRef } from 'react';
 
-import Spinner from './Spinner';
+import { Spinner } from '..';
 
 import styles from './Feed.module.css';
 
