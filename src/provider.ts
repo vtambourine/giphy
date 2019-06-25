@@ -1,16 +1,16 @@
-const API_KEY = '';
+const GITHPY_API_KEY = process.env.REACT_APP_GITHPY_API_KEY;
 
 interface ProviderOptions {
-  language?: string;
-  limit?: number;
-  offset?: number;
-  rating?: string;
+  language: string;
+  limit: number;
+  offset: number;
+  rating: string;
 }
 
 class Provider {
   options: ProviderOptions;
 
-  constructor(private query: string, options: ProviderOptions = {}) {
+  constructor(private query: string, options: Partial<ProviderOptions> = {}) {
     this.options = {
       language: 'en',
       limit: 5,
@@ -22,7 +22,7 @@ class Provider {
 
   get url() {
     const { language, limit, offset, rating } = this.options;
-    return `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${this.query}&limit=${limit}&offset=${offset}&rating=${rating}&lang=${language}`;
+    return `https://api.giphy.com/v1/gifs/search?api_key=${GITHPY_API_KEY}&q=${this.query}&limit=${limit}&offset=${offset}&rating=${rating}&lang=${language}`;
   }
 
   next() {
