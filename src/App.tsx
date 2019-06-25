@@ -22,13 +22,10 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   throttledSubmit: (query: string) => void;
-  provider: Provider;
+  provider?: Provider;
 
   constructor(props: IAppProps) {
     super(props);
-    this.provider = new Provider('', {
-      limit: 20,
-    });
     this.throttledSubmit = throttle(this.onSubmit, 1500, { leading: false });
   }
 
@@ -36,9 +33,7 @@ class App extends React.Component<IAppProps, IAppState> {
     this.setState({
       isLoading: true,
     });
-    this.provider = new Provider(query, {
-      limit: 20,
-    });
+    this.provider = new Provider(query);
     this.provider.next().then(({ data }) =>
       this.setState({
         isLoading: false,
@@ -48,7 +43,7 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   onFeedEnd = () => {
-    if (!this.state.isLoading) {
+    if (!this.state.isLoading && this.provider) {
       this.setState({
         isLoading: true,
       });
