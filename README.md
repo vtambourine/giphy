@@ -64,3 +64,7 @@ More time should be invested in better test quality and test covarage. One of th
 ### Caching
 
 One of the important sides of web application not covered in this project is caching and traffic optimisation. There are multiple paths to take to make user experience better. One of them — fetching next batches of images for infinite scroll in the background process of service worker. Another — store popular queries and pre-load expected images on the initial screen.
+
+### Performance
+
+Important feature not implemented in this project is automatic cleanup of the earlier images in the feed. After infinite feed loader kicked in for tens of dozens of times, there are nearly thousand of images added to the DOM, but not visible on the screen. That can dramatically slow down performance of the page, especially on the mobiles and slow computers. One of the possible solution would be to remove older images from the page, and fetch them again on scrolls up (with lesser offset parameter).
