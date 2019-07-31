@@ -62,9 +62,9 @@ const Feed: React.FC<IFeedProps> = props => {
           <div className={styles.imageBox} key={key}>
             <img
               className={styles.image}
-              src={gif.images.fixed_width_still.url}
+              src={gif.images.fixed_width.url}
               alt={gif.title}
-              width={gif.images.fixed_width_still.width}
+              width={gif.images.fixed_width.width}
             />
           </div>
         );

@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Feed, Search, Spinner } from '..';
 import { Provider } from '../../services';
+import PreviousSearches from '../PreviousSearches/PreviousSearches';
 
 import styles from './App.module.css';
 
@@ -13,6 +14,8 @@ interface IAppState {
   loadingFeed: boolean;
   loadingQuery: boolean;
   data: GIF[];
+  previousSearches: string[];
+  query?: string;
 }
 
 class App extends React.Component<IAppProps, IAppState> {
@@ -20,6 +23,8 @@ class App extends React.Component<IAppProps, IAppState> {
     loadingFeed: false,
     loadingQuery: false,
     data: [] as GIF[],
+    previousSearches: ['cats'],
+    query: '',
   };
 
   throttledSubmit: (query: string) => void;
@@ -31,8 +36,13 @@ class App extends React.Component<IAppProps, IAppState> {
   }
 
   onSubmit = (query: string) => {
+    const previousSearches = this.state.previousSearches;
+    if (!previousSearches.includes(query)) {
+      previousSearches.unshift(query);
+    }
     this.setState({
       loadingQuery: true,
+      previousSearches,
     });
     this.provider = new Provider(query);
     this.provider.next().then(({ data }) =>
@@ -41,6 +51,14 @@ class App extends React.Component<IAppProps, IAppState> {
         data,
       }),
     );
+  };
+
+  applyQuery = (query: string) => {
+    console.log(query);
+    this.onSubmit(query);
+    this.setState({
+      query,
+    });
   };
 
   onFeedEnd = () => {
@@ -61,6 +79,12 @@ class App extends React.Component<IAppProps, IAppState> {
     const { data, loadingFeed, loadingQuery } = this.state;
     return (
       <div className={styles.app}>
+        <div className={styles.previousSearches}>
+          <PreviousSearches
+            onQuerySelected={this.applyQuery}
+            queries={this.state.previousSearches}
+          />
+        </div>
         <div
           className={cx(styles.container, {
             [styles.empty]: data.length === 0,
@@ -68,7 +92,7 @@ class App extends React.Component<IAppProps, IAppState> {
           })}
         >
           <div className={styles.search}>
-            <Search onChange={this.throttledSubmit} />
+            <Search query={this.state.query} onChange={this.throttledSubmit} />
             {loadingQuery && (
               <div className={styles.spinner}>
                 <Spinner />

@@ -1,0 +1,12 @@
+.container {
+  color: white;
+}
+
+.query {
+  cursor: pointer;
+  margin: 3px 0;
+}
+
+.query:hover {
+  color: blue;
+}
